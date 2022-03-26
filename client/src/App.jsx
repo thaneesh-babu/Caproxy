@@ -4,7 +4,7 @@ import './App.css'
 const App = () => {
   return (
     <div className="min-h-screen">
-      <div className="gradient-bg-welcome">
+      <div className="bg-[#141414]">
         <Navbar />
         <Welcome />
       </div>
