@@ -17,11 +17,24 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 const Welcome = () => {
-  const { connectWallet } = useContext(TransactionContext);
+  const {
+    connectWallet,
+    currentAccount,
+    formData,
+    setFormData,
+    handleChange,
+    sendTransaction,
+  } = useContext(TransactionContext);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    const { addressTo, amount, keyword, message } = formData;
 
-  const handleChange = () => {};
+    e.preventDefault();
+
+    if (!addressTo || !amount || !keyword || !message) return;
+
+    sendTransaction();
+  };
 
   return (
     <div className="flex w-full justify-center items-center">
@@ -30,14 +43,18 @@ const Welcome = () => {
           <h1 className="text-3xl sm:text-5xl text-white text-gradient">
             Buy and sell crypto <br /> anywhere, anytime.
           </h1>
-          <button
-            type="button"
-            onClick={connectWallet}
-            className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-          >
-            <AiFillPlayCircle className="text-white mr-2" />
-            <p className="text-white text-base font-semibold">Connect Wallet</p>
-          </button>
+          {!currentAccount && (
+            <button
+              type="button"
+              onClick={connectWallet}
+              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+            >
+              <AiFillPlayCircle className="text-white mr-2" />
+              <p className="text-white text-base font-semibold">
+                Connect Wallet
+              </p>
+            </button>
+          )}
         </div>
 
         <div className="flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10">
